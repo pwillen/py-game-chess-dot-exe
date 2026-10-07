@@ -74,7 +74,7 @@ class MoveGenerator:
         if king_position is None:
             return False
 
-        opponent = Color.BLACK if color == Color.WHITE else Color.WHITE
+        opponent = Color.DARK if color == Color.LIGHT else Color.LIGHT
         for move in MoveGenerator.generate_all_moves(board, opponent):
             if move.to_position == king_position:
                 return True
@@ -92,9 +92,9 @@ class MoveGenerator:
     @staticmethod
     def _pawn_moves(board: ChessBoard, from_position: Position, piece: Pawn) -> list[Move]:
         moves: list[Move] = []
-        direction = 8 if piece.color == Color.WHITE else -8
-        start_row = 1 if piece.color == Color.WHITE else 6
-        promotion_row = 7 if piece.color == Color.WHITE else 0
+        direction = 8 if piece.color == Color.LIGHT else -8
+        start_row = 1 if piece.color == Color.LIGHT else 6
+        promotion_row = 7 if piece.color == Color.LIGHT else 0
 
         one_forward_index = from_position.index + direction
         if MoveGenerator.in_bounds(one_forward_index):
@@ -108,7 +108,7 @@ class MoveGenerator:
                     if board.get_piece(two_forward) is None:
                         moves.append(Move(from_position=from_position, to_position=two_forward))
 
-        capture_offsets = (7, 9) if piece.color == Color.WHITE else (-7, -9)
+        capture_offsets = (7, 9) if piece.color == Color.LIGHT else (-7, -9)
         for offset in capture_offsets:
             capture_index = from_position.index + offset
             if not MoveGenerator.in_bounds(capture_index):
