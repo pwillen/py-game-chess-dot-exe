@@ -25,7 +25,7 @@ class CastlingRights:
 class ChessGame:
     def __init__(self):
         self.board = ChessBoard()
-        self.side_to_move = Color.WHITE
+        self.side_to_move = Color.LIGHT
         self.status = GameStatus.ACTIVE
         self.last_move: tuple[Position, Position] | None = None
         self.castling_rights = CastlingRights()
@@ -40,6 +40,6 @@ class ChessGame:
                 self.board.set_piece(from_position, None)
                 self.last_move = (from_position, to_position)
                 self.en_passant_target = None
-                self.side_to_move = Color.BLACK if self.side_to_move == Color.WHITE else Color.WHITE
+                self.side_to_move = Color.DARK if self.side_to_move == Color.LIGHT else Color.LIGHT
                 return True
         return False
