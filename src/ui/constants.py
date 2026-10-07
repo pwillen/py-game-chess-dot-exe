@@ -1,0 +1,17 @@
+import pygame
+
+BOARD_SIZE = 640 # 8 x 8 x 10
+SQUARE_SIZE = BOARD_SIZE // 8
+WINDOW_WIDTH = 900
+WINDOW_HEIGHT = 720
+BOARD_LEFT = 20
+BOARD_TOP = 20
+PANEL_LEFT = BOARD_LEFT + BOARD_SIZE + 20
+
+LIGHT_SQUARE = pygame.Color("#f0d9b5")
+DARK_SQUARE = pygame.Color("#b58863")
+HIGHLIGHT_SQUARE = pygame.Color(255, 215, 0, 120)
+SELECTED_SQUARE = pygame.Color(80, 180, 255, 140)
+MOVE_DOT = pygame.Color(40, 40, 40, 180)
+TEXT_COLOR = pygame.Color("white")
+BACKGROUND = pygame.Color("#1f1f1f")
