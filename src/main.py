@@ -1,6 +1,7 @@
 import pygame
 
-from chess.ui import ChessUI, WINDOW_HEIGHT, WINDOW_WIDTH
+from ui.constants import WINDOW_WIDTH, WINDOW_HEIGHT
+from ui.game_window import ChessUI
 
 
 def main():
@@ -17,8 +18,11 @@ def main():
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 ui.handle_click(event.pos)
+            elif event.type == pygame.MOUSEMOTION:
+                ui.handle_hover(event.pos)
 
-        ui.draw(screen)
+        # Render the new frame based on game state and user interactions
+        ui.draw_frame(screen)
         pygame.display.flip()
         clock.tick(60)
 
