@@ -22,15 +22,23 @@ class Piece(ABC):
 
     @property
     def is_light(self) -> bool:
-        return self.color == Color.LIGHT
+        return self.color is Color.LIGHT
 
     @property
     def is_dark(self) -> bool:
-        return self.color == Color.DARK
+        return self.color is Color.DARK
+
+    @property
+    def opponent_color(self) -> Color:
+        return Color.DARK if self.is_light else Color.LIGHT
 
     @property
     def sprite_filename(self) -> str:
         return f"Chess_{self.symbol}{self.color.value}t160.png"
+
+    @property
+    def forward_direction(self) -> int:
+        return 1 if self.is_light else -1
 
     def __str__(self) -> str:
         return self.symbol
@@ -49,6 +57,14 @@ class Pawn(Piece):
     @property
     def symbol(self) -> str:
         return 'p'
+
+    @property
+    def start_row(self) -> int:
+        return 1 if self.is_light else 6
+
+    @property
+    def promotion_row(self) -> int:
+        return 7 if self.is_light else 0
 
 
 class Rook(Piece):
