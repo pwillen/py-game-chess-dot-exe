@@ -52,7 +52,7 @@ class ChessUI:
         piece = self.game.board.get_piece(position)
 
         # Check if the hovered square contains a piece of the current player's color
-        if piece and piece.color == self.game.side_to_move:
+        if piece and piece.color == self.game.active_player:
             self.hovered_position = position
             self.hover_moves = MoveGenerator.generate_legal_piece_moves(self.game.board, position, piece)
             return
@@ -84,7 +84,7 @@ class ChessUI:
 
         # If no piece is currently selected, select the piece on the clicked square if it belongs to the current player
         if self.selected_position is None:
-            if piece and piece.color == self.game.side_to_move:
+            if piece and piece.color == self.game.active_player:
                 self.selected_position = position
                 self.legal_moves = MoveGenerator.generate_legal_piece_moves(self.game.board, position, piece)
                 self.hovered_position = None
@@ -102,7 +102,7 @@ class ChessUI:
         # Check if the clicked position is a legal move for the selected piece
         if any(move.to_position == position for move in self.legal_moves):
             self.game.move(self.selected_position, position)
-        elif piece and piece.color == self.game.side_to_move:
+        elif piece and piece.color == self.game.active_player:
             self.selected_position = position
             self.legal_moves = MoveGenerator.generate_legal_piece_moves(self.game.board, position, piece)
             return
@@ -194,7 +194,7 @@ class ChessUI:
 
     def _draw_sidebar(self, screen: pygame.Surface):
         title = self.small_font.render('Chess', True, TEXT_COLOR)
-        turn = self.small_font.render(f'Turn: {self.game.side_to_move.name}', True, TEXT_COLOR)
+        turn = self.small_font.render(f'Turn: {self.game.active_player.name}', True, TEXT_COLOR)
         status = self.small_font.render(f'Status: {self.game.status.name}', True, TEXT_COLOR)
         screen.blit(title, (PANEL_LEFT, 30))
         screen.blit(turn, (PANEL_LEFT, 70))
