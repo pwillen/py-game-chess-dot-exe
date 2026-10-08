@@ -54,7 +54,7 @@ class ChessUI:
         # Check if the hovered square contains a piece of the current player's color
         if piece and piece.color == self.game.side_to_move:
             self.hovered_position = position
-            self.hover_moves = MoveGenerator.generate_piece_moves(self.game.board, position, piece)
+            self.hover_moves = MoveGenerator.generate_legal_piece_moves(self.game.board, position, piece)
             return
 
         # No change otherwise, reset hovered position and moves if the mouse is not over a valid piece
@@ -86,7 +86,7 @@ class ChessUI:
         if self.selected_position is None:
             if piece and piece.color == self.game.side_to_move:
                 self.selected_position = position
-                self.legal_moves = MoveGenerator.generate_piece_moves(self.game.board, position, piece)
+                self.legal_moves = MoveGenerator.generate_legal_piece_moves(self.game.board, position, piece)
                 self.hovered_position = None
                 self.hover_moves = []
             return
@@ -104,7 +104,7 @@ class ChessUI:
             self.game.move(self.selected_position, position)
         elif piece and piece.color == self.game.side_to_move:
             self.selected_position = position
-            self.legal_moves = MoveGenerator.generate_piece_moves(self.game.board, position, piece)
+            self.legal_moves = MoveGenerator.generate_legal_piece_moves(self.game.board, position, piece)
             return
 
         self.selected_position = None
