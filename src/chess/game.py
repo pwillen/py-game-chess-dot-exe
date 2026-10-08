@@ -48,22 +48,24 @@ class ChessGame:
         piece = self.board.get_piece(from_position)
         if piece and piece.color is self.active_player:
             valid_moves = MoveGenerator.generate_legal_piece_moves(self.board, from_position, piece)
-            selected_move = self._resolve_move_to_destination(valid_moves, to_position)
+            selected_move = _resolve_move_to_destination(valid_moves, to_position)
             if selected_move is not None:
                 MoveGenerator.apply_move_on_board(self.board, selected_move, piece)
                 self.last_move = (from_position, to_position)
+                # TODO : Update castling rights and en passant target based on the move made.
                 self.en_passant_target = None
                 self.active_player = Color.DARK if self.active_player is Color.LIGHT else Color.LIGHT
                 return True
         return False
 
-    @staticmethod
-    def _resolve_move_to_destination(moves: list[Move], to_position: Position) -> Move | None:
-        destination_moves = [move for move in moves if move.to_position == to_position]
-        if not destination_moves:
-            return None
 
-        for move in destination_moves:
-            if move.promotion_piece_type is Queen:
-                return move
-        return destination_moves[0]
+def _resolve_move_to_destination(moves: list[Move], to_position: Position) -> Move | None:
+    destination_moves = [move for move in moves if move.to_position == to_position]
+    if not destination_moves:
+        return None
+
+    for move in destination_moves:
+        # TODO : Handle promotion choice in UI interaction.
+        if move.promotion_piece_type is Queen:
+            return move
+    return destination_moves[0]
