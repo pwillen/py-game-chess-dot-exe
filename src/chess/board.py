@@ -162,10 +162,19 @@ class ChessBoard:
         for position, piece in self.STARTING_PIECES:
             self.set_piece(position, piece)
 
-    def iter_pieces(self):
+    def iter_pieces(self, color: Color | None = None):
+        """
+        Iterates over all pieces on the chessboard, optionally filtering by color.
+        Args:
+            color: The color of the pieces to filter by, or None to include all colors.
+
+        Returns:
+            An iterator over tuples of (position, piece) for each piece matching the filter.
+
+        """
         for row in self.board:
             for square in row:
-                if square.piece is not None:
+                if square.piece is not None and (color is None or square.piece.color is color):
                     yield square.position, square.piece
 
     def get_piece(self, position: Position) -> Piece | None:
